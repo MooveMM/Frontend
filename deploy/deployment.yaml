@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: dev
+  annotations:
+    sidecar.istio.io/inject: "false"
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        securityContext:
+          privileged: true
+        image: docker.moove-86bb64229c8b7986aa79497eaebc2fd2-0000.eu-gb.containers.appdomain.cloud/docker/frontend:latest
+        ports:
+        - containerPort: 3000  
