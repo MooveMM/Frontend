@@ -12,13 +12,12 @@ pipeline{
       stage('Initialize'){
         steps{
                sh 'docker -v'
+               sh 'whoami'
         }
           }
 
        stage ('build react app'){
            steps{
-             sh 'sudo chown -R jenkins .npm'
-             sh 'npm config set unsafe-perm=true'
             sh 'npm install'
             sh 'npm run-script build'
            }
