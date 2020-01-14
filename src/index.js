@@ -9,14 +9,14 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import setupStore from './store/index';
-import Setup from './Setup';
+import App from './App';
 
 const { configureStore, persistor, history } = setupStore();
 
 var theme = createMuiTheme({
     palette: {
         primary: {
-            main: "#607D8B",
+            main: "#004d40",
         }, 
         secondary: {
             main: "#e5e5e5",
@@ -31,7 +31,7 @@ ReactDOM.render(
         <PersistGate persistor={persistStore(persistor)} loading={null}>
             <MuiThemeProvider theme={theme}>
                 <ConnectedRouter history={history}>
-                    <Setup />
+                    <App />
                 </ConnectedRouter>
             </MuiThemeProvider>
         </PersistGate>

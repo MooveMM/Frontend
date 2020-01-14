@@ -1,0 +1,51 @@
+.login-container{
+    background-image: url("../images/apartment.jpg"); 
+    background-size: cover;
+    width: 100vw; 
+    height: 100vh; 
+    display: flex; 
+    justify-content: flex-end;
+    
+}
+
+.login-sidebar{
+    width: 33%;
+    min-width: 400px;
+    opacity: 0.95;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-login-loader{
+   height: 26px !important;
+   width: 26px !important;
+}
+
+.login-box-headline{
+    margin-bottom: 10px !important
+}
+.login-box-textfield{
+    margin-bottom: 5px !important
+}
+
+.login-login-button{
+    width: 50%;
+    border-radius: 0px !important;
+    font-size:15px !important;
+}
+.login-register-button{
+    width: 50%; 
+    border-radius: 0px !important;
+    font-size:15px !important;
+}
+.login-box{
+    display: flex; 
+    flex-flow: column;
+    flex: 1;
+    flex-grow: 1;
+    width: 90%;
+}
+
+
+

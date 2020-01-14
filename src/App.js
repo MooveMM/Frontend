@@ -1,18 +1,18 @@
-import React from 'react';
-import './App.css';
-import { connect } from 'react-redux';
+import React from "react";
+import "./App.css";
+import { connect } from "react-redux";
+import { Route, Switch } from 'react-router-dom'
+import Login from './screens/login'
+import LandingPage from './screens/landingpage'
 //Import all screens here:
-
 
 /**
  * A component that renders the start point of the app
  * @module App
  * @extends Component
- * @author IBM - Cathrine Søby Rathje
  * @since 1.0
  */
 class App extends React.Component {
-  
   /**
    * Default render fn for the App component
    * @public
@@ -20,8 +20,13 @@ class App extends React.Component {
    * @name render
    * @returns renders the main app page based on whether the user is logged in or not
    */
-  render () {
-    return <div>Hi</div>;
+  render() {
+    return (
+      <Switch>
+        <Route path="/" exact component={this.props.loggedIn? LandingPage : Login} />
+        <Route component={Login} />
+      </Switch>
+    );
   } // render()
 } // App.js
 
@@ -32,6 +37,8 @@ class App extends React.Component {
  * @returns the mapped props
  */
 const mapStateToProps = state => ({
+  loggedIn: state.user.loggedIn
+
 }); // mapStateToProps()
 
 // Exports the redux connected component
