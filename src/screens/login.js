@@ -68,7 +68,7 @@ class Login extends React.Component {
                   id="username"
                   className="login-box-textfield"
                   variant="outlined"
-                  label="Brugernavn"
+                  label="Email"
                 />
                 <TextField
                   type="password"
@@ -127,7 +127,7 @@ class Login extends React.Component {
                   id="username"
                   className="login-box-textfield"
                   variant="outlined"
-                  label="Brugernavn"
+                  label="Email"
                 />
                 <TextField
                   type="password"

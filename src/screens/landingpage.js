@@ -27,8 +27,7 @@ class LandingPage extends React.Component {
   render() {
     return (
       <div>
-        ya did it you spooky midget
-        <Button onClick = {() =>this.props.logout () }>LOG ME OUT!</Button>
+        <Button onClick = {() =>this.props.logout () }>LOG OUT </Button>
       </div>
     );
   } // render()
