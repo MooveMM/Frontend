@@ -17,6 +17,7 @@ pipeline{
 
        stage ('build react app'){
            steps{
+             sh 'npm config set unsafe-perm=true'
             sh 'npm install'
             sh 'npm run-script build'
            }
