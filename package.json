@@ -46,7 +46,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run test"
+      "pre-push": "echo hi"
     }
   },
   "eslintConfig": {
