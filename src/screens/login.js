@@ -94,7 +94,7 @@ class Login extends React.Component {
                       }
                     }
                   >
-                    Opret bruger
+                    Registrer
                   </Button>
                   <Button
                     color="primary"
@@ -120,7 +120,7 @@ class Login extends React.Component {
             <Fade right when={this.state.playanimation}>
               <div className="login-box">
                 <Typography className="login-box-headline" variant="h2">
-                  Opret Bruger
+                Registrer
                 </Typography>
                 <TextField
                   onChange={e => this.handleChange(e)}
@@ -188,7 +188,7 @@ class Login extends React.Component {
                         className="login-login-loader"
                       />
                       :
-                    "Opret bruger"
+                    "Registrer"
                       }
                   </Button>
                 </div>
