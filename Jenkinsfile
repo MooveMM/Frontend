@@ -19,7 +19,7 @@ pipeline{
        stage ('build react app'){
            steps{
            
-             sh 'sudo chown -R   /home/jenkins/.npm/ '
+             sh 'sudo rm -rf /home/jenkins/.npm/ '
             sh 'npm install'
             sh 'npm run-script build'
            }
