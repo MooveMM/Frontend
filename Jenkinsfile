@@ -5,7 +5,7 @@ pipeline{
       //ENV sdfsdf
         APPURL = 'api/v1/template'
         GIT_REPO_SSH="git@github.com:MooveMM/Router.git"
-
+         HOME = '.'
     }
 
     stages {
