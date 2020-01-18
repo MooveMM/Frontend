@@ -1,0 +1,19 @@
+.landingpage-container{
+ 
+
+    display: flex; 
+    flex: 1; 
+    justify-content: center;
+   align-items: center;
+   overflow: hidden;
+    
+}
+
+.landingpage-container-paper{
+  
+    display: flex; 
+    flex: 1; 
+    justify-content: center;
+   align-items: center;
+    
+}

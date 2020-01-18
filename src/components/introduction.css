@@ -1,0 +1,30 @@
+.introduction-text{
+    display: flex;
+     justify-content: center;
+     align-items: center;
+     
+}
+.introduction-container{
+    padding: 50px;
+    min-height: 100vh;
+}
+
+.introduction-text-right{
+  width: 70%;
+  padding-left: 20px;
+}
+
+.introduction-text-left{
+    width: 70%;
+    padding-left: 20px;
+  }
+.introduction-image-left{
+    width: 30%
+}
+.introduction-image-right{
+    width: 30%
+}
+.introduction-start-button{
+height: 100px; 
+width: 200px;
+}

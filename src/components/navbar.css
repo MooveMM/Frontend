@@ -1,0 +1,6 @@
+.Navbar-toolbar{
+display:flex; 
+flex: 1;
+justify-content: flex-end;
+align-items: flex-end;
+}

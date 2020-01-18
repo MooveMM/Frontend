@@ -9,14 +9,32 @@ import {
   Button,
   CircularProgress
 } from "@material-ui/core";
-/**
- * A component that renders ...
- * @module Template
- * @extends Component
- * @author IBM - Cathrine Søby Rathje
- * @since 1.0
- */
+import './landingpage.css'
+import Questionaire from "../components/questionaire";
+import Introduction from "../components/introduction";
+import Fade from "react-reveal/Fade";
+
 class LandingPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      step: 1
+    };
+  }
+
+  setStep(step){
+      this.setState({step: step})
+  }
+   renderContentToStep(step) {
+    switch (step) {
+      case 0:
+        return (<Introduction setStep={ (step) => this.setStep(step)}></Introduction>);
+      case 1:
+          return (<Questionaire></Questionaire>);
+      case 2:
+          return ( <Questionaire></Questionaire>);
+    }
+  }
   /**
    * Default render fn for the Template component
    * @public
@@ -26,8 +44,10 @@ class LandingPage extends React.Component {
    */
   render() {
     return (
-      <div>
-        <Button onClick = {() =>this.props.logout () }>LOG OUT </Button>
+      <div className="landingpage-container">
+        {this.props.firstTimeLogin ? (
+          <div elevation={5} className="landingpage-container-paper">{this.renderContentToStep(this.state.step)}</div>
+        ) : null}
       </div>
     );
   } // render()
@@ -39,7 +59,9 @@ class LandingPage extends React.Component {
  * @param {object} state the redux state
  * @returns the mapped props
  */
-const mapStateToProps = state => ({}); // mapStateToProps()
+const mapStateToProps = state => ({
+  firstTimeLogin: true
+}); // mapStateToProps()
 
 /**
  * Maps the Component Functions to Redux

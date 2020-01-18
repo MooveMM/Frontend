@@ -1,9 +1,10 @@
 import React from "react";
 import "./App.css";
 import { connect } from "react-redux";
-import { Route, Switch } from 'react-router-dom'
-import Login from './screens/login'
-import LandingPage from './screens/landingpage'
+import { Route, Switch } from "react-router-dom";
+import Login from "./screens/login";
+import LandingPage from "./screens/landingpage";
+import Navbar from "./components/navbar";
 //Import all screens here:
 
 /**
@@ -22,10 +23,19 @@ class App extends React.Component {
    */
   render() {
     return (
-      <Switch>
-        <Route path="/" exact component={this.props.loggedIn? LandingPage : Login} />
-        <Route component={Login} />
-      </Switch>
+      <div>
+        {this.props.loggedIn ?
+        <Navbar></Navbar>
+        :null}
+        <Switch>
+          <Route
+            path="/"
+            exact
+            component={this.props.loggedIn ? LandingPage : Login}
+          />
+          <Route component={Login} />
+        </Switch>
+      </div>
     );
   } // render()
 } // App.js
@@ -38,7 +48,6 @@ class App extends React.Component {
  */
 const mapStateToProps = state => ({
   loggedIn: state.user.loggedIn
-
 }); // mapStateToProps()
 
 // Exports the redux connected component

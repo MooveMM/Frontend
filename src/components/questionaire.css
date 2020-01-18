@@ -1,0 +1,32 @@
+.questionaire-container{
+    display: flex; 
+    display: 1; 
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+
+}
+
+.questionaire-stepcontent{
+    width: 100%; 
+    max-width: 80vw; 
+}
+.questionaire-steplabel{
+    font-size: 30px !important
+}
+.questionaire-stepcontent-box{
+    width: 80vw;
+    display:flex;
+    flex: 1;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+.questionaire-stepcontent-box-textfield{
+    margin: 10px !important;
+}
+
+.questionaire-map{
+    width: 500px;
+    height: 500px;
+}

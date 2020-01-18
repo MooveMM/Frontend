@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import '../screens/global.css';
+import {
+  Paper,
+  Typography,
+  TextField,
+  Button,
+  CircularProgress
+} from "@material-ui/core";
 
-/**
- * A component that renders ...
- * @module Template
- * @extends Component
- * @author IBM - Cathrine Søby Rathje
- * @since 1.0
- */
+
  class Template extends React.Component {
 
   /**
