@@ -22,6 +22,7 @@
     "mocha-junit-reporter": "^1.23.1",
     "node-fetch": "^2.6.0",
     "nyc": "^14.1.1",
+    "rc-here-maps": "^1.1.8",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-here-map": "^2.1.0",

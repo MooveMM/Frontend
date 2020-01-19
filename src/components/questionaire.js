@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
@@ -12,10 +12,9 @@ import {
   StepLabel,
   StepContent
 } from "@material-ui/core";
-import { SupervisorAccount } from "@material-ui/icons";
 import "./questionaire.css";
 import Fade from "react-reveal/Fade";
-import HPlatform, { HMap, HMapCircle } from "react-here-map";
+import { HereMap, Circle } from 'rc-here-maps';
 
 function getSteps() {
   return [
@@ -24,15 +23,11 @@ function getSteps() {
     { text: "Create an ad" }
   ];
 }
-
-function GetLatLong(string) {
-  return "platform";
-}
 const circleOptions = {
   style: {
     strokeColor: "rgba(55, 85, 170, 0.1)", // Color of the perimeter
     lineWidth: 2,
-    fillColor: "rgba(0, 128, 0, 0.1)" // Color of the circle
+    fillColor: "rgba(0, 128, 0, 0.1)", // Color of the circle
   }
 };
 
@@ -45,31 +40,11 @@ class Questionaire extends React.Component {
       lng: 10.03745,
       circleRadius: 1
     };
+
+
   }
 
-  componentDidMount() {
-    //Custom load
-    var script = document.createElement("script");
-    script.src = "https://js.api.here.com/v3/3.1/mapsjs-core.js";
-    script.async = true;
-    document.body.appendChild(script);
-    var script = document.createElement("script");
-    script.src = "https://js.api.here.com/v3/3.1/mapsjs-service.js";
-    script.async = true;
-    script.onload = () => this.scriptLoaded();
 
-    document.body.appendChild(script);
-  }
-
-  scriptLoaded() {
-    try {
-      this.platform = new window.H.service.Platform({
-        apikey: "IO2SJssvM_fMfDHfCxBHir03OR6YrKxQzCf1CJwpJkU"
-      });
-    } catch (e) {
-      //wut
-    }
-  }
   /**
    * Default render fn for the Template component
    * @public
@@ -95,7 +70,9 @@ class Questionaire extends React.Component {
 
   handleChangeLocation = e => {
     //remove all stuff
-    console.log(window.map);
+    this.platform = new window.H.service.Platform({
+      apikey: "IO2SJssvM_fMfDHfCxBHir03OR6YrKxQzCf1CJwpJkU"
+    });
     var geocoder = this.platform.getGeocodingService();
     var geocodingParams = {
       searchText: e.target.value + "Denmark"
@@ -145,26 +122,23 @@ class Questionaire extends React.Component {
               />
             </div>
             <div className="questionaire-map">
-              <HPlatform
-                app_id="WhpVJRPE4HnJTP3BNsHM"
-                app_code="IO2SJssvM_fMfDHfCxBHir03OR6YrKxQzCf1CJwpJkU-dWuetlWw"
-                useHTTPS
-                includePlaces
-              >
-                <HMap
-                  style={{
-                    height: "500px",
-                    width: "500px"
-                  }}
-                  mapOptions={{ center: { lat: this.state.lat, lng: this.state.lng, zoom:7 } }}
-                >
-                  <HMapCircle
-                    coords={{lat: this.state.lat, lng: this.state.lng}}
-                    radius={Number(this.state.circleRadius)}
-                    options={circleOptions}
-                  />
-                </HMap>
-              </HPlatform>
+
+            <HereMap
+                   appId={"WhpVJRPE4HnJTP3BNsHM"}
+                   appCode={"IO2SJssvM_fMfDHfCxBHir03OR6YrKxQzCf1CJwpJkU-dWuetlWw"}
+                   center={{ lat: this.state.lat, lng: this.state.lng }}
+                   zoom={8}
+                   useHTTPS={false} 
+               >
+                   <Circle
+                        center={{ lat: this.state.lat, lng: this.state.lng }}
+                       strokeColor="#1275E8"
+                       fillColor="rgba(212, 92, 91, 0.2)"
+                       lineWidth={2}
+                       radius={this.state.circleRadius}
+                   />
+               </HereMap>
+
 
             </div>
           </div>

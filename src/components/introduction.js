@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import "./introduction.css";
 import Fade from "react-reveal/Fade";
-class Template extends React.Component {
+class Introduction extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -115,4 +115,4 @@ const mapDispatchToProps = dispatch => ({
 }); // mapDispatchToProps()
 
 // Exports the redux connected component
-export default connect(mapStateToProps, mapDispatchToProps)(Template);
+export default connect(mapStateToProps, mapDispatchToProps)(Introduction);

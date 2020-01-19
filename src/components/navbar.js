@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { AppBar, Toolbar, IconButton, Menu, MenuItem } from "@material-ui/core";
-import { MoreVert } from "@material-ui/icons";
+import  MoreVert from "@material-ui/icons/MoreVert";
 import * as UserActions from "../_actions/user";
 import './navbar.css'
 class Navbar extends React.Component {
