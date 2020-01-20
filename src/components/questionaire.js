@@ -1,4 +1,4 @@
-import React, {PropTypes} from "react";
+import React, { PropTypes } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
@@ -14,20 +14,20 @@ import {
 } from "@material-ui/core";
 import "./questionaire.css";
 import Fade from "react-reveal/Fade";
-import { HereMap, Circle } from 'rc-here-maps';
+import { HereMap, Circle, Marker } from "rc-here-maps";
 
 function getSteps() {
   return [
     { text: "Hvor vil du gerne bo? " },
     { text: "Hvor stor skal din lejlighed/bolig være?" },
-    { text: "Create an ad" }
+    { text: "FLERE STEPS TAK!" }
   ];
 }
 const circleOptions = {
   style: {
     strokeColor: "rgba(55, 85, 170, 0.1)", // Color of the perimeter
-    lineWidth: 2,
-    fillColor: "rgba(0, 128, 0, 0.1)", // Color of the circle
+    lineWidth: 100,
+    fillColor: "rgba(0, 128, 0, 0.1)" // Color of the circle
   }
 };
 
@@ -38,12 +38,13 @@ class Questionaire extends React.Component {
       activeStep: 0,
       lat: 56.2631,
       lng: 10.03745,
-      circleRadius: 1
+      circleRadius: 100
     };
 
-
+    this.platform = new window.H.service.Platform({
+      apikey: "rDtKkw-jNNzIP1CWuGhR1M124RsMNC3m2Me4HTkT1nE"
+    });
   }
-
 
   /**
    * Default render fn for the Template component
@@ -70,33 +71,45 @@ class Questionaire extends React.Component {
 
   handleChangeLocation = e => {
     //remove all stuff
-    this.platform = new window.H.service.Platform({
-      apikey: "IO2SJssvM_fMfDHfCxBHir03OR6YrKxQzCf1CJwpJkU"
-    });
-    var geocoder = this.platform.getGeocodingService();
-    var geocodingParams = {
-      searchText: e.target.value + "Denmark"
-    };
 
-    geocoder.geocode(
-      geocodingParams,
-      result => {
-        var location =
-          result.Response.View[0].Result[0].Location.DisplayPosition;
-        this.setState({
-          ...this.state,
-          lat: location.Latitude,
-          lng: location.Longitude
-        });
-      },
-      function(e) {
-        console.error(e);
-      }
-    );
+    //API call to geocode
+    try {
+      fetch(
+        `https://geocoder.api.here.com/6.2/geocode.json?searchtext=${encodeURI(
+          e.target.value
+        )}&app_id=s987sOK0bA4ALoekPMyB&app_code=cIchRDLitdL6XsdgSwrGCQ&gen=8&country=DNK`
+      ).then(result => {
+        try {
+          console.log(result);
+          result.json().then(async json => {
+            try {
+              var location =
+                json.Response.View[0].Result[0].Location.DisplayPosition;
+              await this.setState({
+                ...this.state,
+                lat: location.Latitude,
+                lng: location.Longitude
+              });
+            } catch (e) {
+              //don't do dick on fail
+            }
+          });
+        } catch (e) {
+          //don't do dick on fail
+        }
+      });
+    } catch (e) {
+      //don't do dick on fail
+    }
   };
 
   handleChangeCircleSize(e) {
     this.setState({ ...this.state, circleRadius: e.target.value });
+  }
+
+
+  handleInput(e){
+    this.setState({...this.state, [e.target.id]: e.target.value })
   }
 
   getStepContent = index => {
@@ -107,40 +120,71 @@ class Questionaire extends React.Component {
             <div className="questionaire-stepcontent-box">
               <TextField
                 onChange={e => this.handleChangeLocation(e)}
-                id="postnumber"
-                className="questionaire-stepcontent-box-textfield"
+                id="adress"
+                className="questionaire-stepcontent-box-textfield-address"
                 variant="outlined"
-                label="Postnummer"
+                label="Adresse"
               />
+            </div>
+            <TextField
+              onChange={e => this.handleChangeCircleSize(e)}
+              id="distanceFrom"
+              className="questionaire-stepcontent-box-textfield-distancefrom"
+              variant="outlined"
+              label="radius (meter)"
+              value={this.state.circleRadius}
+              type="number"
+            />
+
+            <div className="questionaire-map">
+              <HereMap
+                appId={"s987sOK0bA4ALoekPMyB"}
+                appCode={"cIchRDLitdL6XsdgSwrGCQ"}
+                center={{ lat: this.state.lat, lng: this.state.lng }}
+                zoom={16}
+                useHTTPS={true}
+              >
+                <Circle
+                  center={{ lat: this.state.lat, lng: this.state.lng }}
+                  strokeColor="#000000"
+                  fillColor="rgba(0, 0, 0, 0.2)"
+                  lineWidth={5}
+                  radius={this.state.circleRadius}
+                />
+              </HereMap>
+            </div>
+          </div>
+        );
+
+      case 1:
+        return (
+          <div>
+            <div className="questionaire-stepcontent-box">
 
               <TextField
-                onChange={e => this.handleChangeCircleSize(e)}
-                id="distanceFrom"
+                onChange={e => this.handleInput(e)}
+                id="size"
                 className="questionaire-stepcontent-box-textfield"
                 variant="outlined"
-                label="Hvor mange meter fra den adresse?"
+                label="Størrelse(m2)"
+                type="number"
               />
+               <TextField
+              onChange={e => this.handleInput(e)}
+              id="rooms"
+              className="questionaire-stepcontent-box-textfield"
+              variant="outlined"
+              label="Antal rum "
+              value={this.state.circleRadius}
+              type="number"
+            />
             </div>
-            <div className="questionaire-map">
-
-            <HereMap
-                   appId={"WhpVJRPE4HnJTP3BNsHM"}
-                   appCode={"IO2SJssvM_fMfDHfCxBHir03OR6YrKxQzCf1CJwpJkU-dWuetlWw"}
-                   center={{ lat: this.state.lat, lng: this.state.lng }}
-                   zoom={8}
-                   useHTTPS={false} 
-               >
-                   <Circle
-                        center={{ lat: this.state.lat, lng: this.state.lng }}
-                       strokeColor="#1275E8"
-                       fillColor="rgba(212, 92, 91, 0.2)"
-                       lineWidth={2}
-                       radius={this.state.circleRadius}
-                   />
-               </HereMap>
-
-
-            </div>
+          </div>
+        );
+      case 2:
+        return (
+          <div>
+            <div className="questionaire-stepcontent-box"></div>
           </div>
         );
     }

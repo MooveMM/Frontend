@@ -22,8 +22,17 @@
     align-items: center;
 
 }
-.questionaire-stepcontent-box-textfield{
+.questionaire-stepcontent-box-textfield-distancefrom{
     margin: 10px !important;
+    width: 150px
+}
+
+.questionaire-stepcontent-box-textfield{
+    margin: 5px !important;
+}
+.questionaire-stepcontent-box-textfield-address{
+    margin: 10px !important;
+    width: 300px
 }
 
 .questionaire-map{
