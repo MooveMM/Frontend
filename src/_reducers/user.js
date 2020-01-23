@@ -1,5 +1,6 @@
 const initialState = {
-    loggedIn: false
+    loggedIn: false,
+    result: {}
   };
   function userReducer(state = initialState, action) {
     switch (action.type) {

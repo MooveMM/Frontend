@@ -159,7 +159,7 @@ class Questionaire extends React.Component {
                 )
               } </div>)})}
             </div>
-          ) : null}
+          ) : <div></div>}
         </Fade>
       </div>
     );
@@ -173,7 +173,7 @@ class Questionaire extends React.Component {
  * @returns the mapped props
  */
 const mapStateToProps = state => ({
-  result: state.questionaire.result
+  result: state.questionaire.result.result? state.questionaire.result : null
 }); // mapStateToProps()
 
 /**
