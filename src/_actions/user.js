@@ -28,13 +28,11 @@ export function login(username, password){
 export function register(username, password){
     return async (dispatch) => {
         dispatch(request("LOGIN_REGISTER_REQUEST"))
-
         return api("/api/v1/authentication/user/register",
          "POST",
          {
              username: username, 
              password: password
-            
          }
          ).then((result) => {
           console.log(result)

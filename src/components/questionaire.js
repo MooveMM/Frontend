@@ -15,7 +15,9 @@ import {
 import "./questionaire.css";
 import Fade from "react-reveal/Fade";
 import { HereMap, Circle, Marker } from "rc-here-maps";
-
+import QuestionaireHard from "./questionaireHard";
+import QuestionaireSoft from "./questionaireSoft";
+import * as QuestionaireActions from "../_actions/questionaire";
 function getSteps() {
   return [
     { text: "Hvor vil du gerne bo? " },
@@ -35,197 +37,129 @@ class Questionaire extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeStep: 0,
-      lat: 56.2631,
-      lng: 10.03745,
-      circleRadius: 100
+      showHard: false,
+      done: true
     };
-
-    this.platform = new window.H.service.Platform({
-      apikey: "rDtKkw-jNNzIP1CWuGhR1M124RsMNC3m2Me4HTkT1nE"
-    });
   }
 
-  /**
-   * Default render fn for the Template component
-   * @public
-   * @method
-   * @name render
-   * @returns renders the template page wrapped in a <div> tag.
-   */
-  setActiveStep(step) {
-    this.setState({ activeStep: step });
-  }
-
-  handleNext = () => {
-    this.setActiveStep(this.state.activeStep + 1);
-  };
-
-  handleBack = () => {
-    this.setActiveStep(this.state.activeStep - 1);
-  };
-
-  handleReset = () => {
-    this.setActiveStep(0);
-  };
-
-  handleChangeLocation = e => {
-    //remove all stuff
-
-    //API call to geocode
-    try {
-      fetch(
-        `https://geocoder.api.here.com/6.2/geocode.json?searchtext=${encodeURI(
-          e.target.value
-        )}&app_id=s987sOK0bA4ALoekPMyB&app_code=cIchRDLitdL6XsdgSwrGCQ&gen=8&country=DNK`
-      ).then(result => {
-        try {
-          console.log(result);
-          result.json().then(async json => {
-            try {
-              var location =
-                json.Response.View[0].Result[0].Location.DisplayPosition;
-              await this.setState({
-                ...this.state,
-                lat: location.Latitude,
-                lng: location.Longitude
-              });
-            } catch (e) {
-              //don't do dick on fail
-            }
-          });
-        } catch (e) {
-          //don't do dick on fail
-        }
-      });
-    } catch (e) {
-      //don't do dick on fail
-    }
-  };
-
-  handleChangeCircleSize(e) {
-    this.setState({ ...this.state, circleRadius: e.target.value });
-  }
-
-
-  handleInput(e){
-    this.setState({...this.state, [e.target.id]: e.target.value })
-  }
-
-  getStepContent = index => {
-    switch (index) {
-      case 0:
-        return (
-          <div>
-            <div className="questionaire-stepcontent-box">
-              <TextField
-                onChange={e => this.handleChangeLocation(e)}
-                id="adress"
-                className="questionaire-stepcontent-box-textfield-address"
-                variant="outlined"
-                label="Adresse"
-              />
-            </div>
-            <TextField
-              onChange={e => this.handleChangeCircleSize(e)}
-              id="distanceFrom"
-              className="questionaire-stepcontent-box-textfield-distancefrom"
-              variant="outlined"
-              label="radius (meter)"
-              value={this.state.circleRadius}
-              type="number"
-            />
-
-            <div className="questionaire-map">
-              <HereMap
-                appId={"s987sOK0bA4ALoekPMyB"}
-                appCode={"cIchRDLitdL6XsdgSwrGCQ"}
-                center={{ lat: this.state.lat, lng: this.state.lng }}
-                zoom={16}
-                useHTTPS={true}
-              >
-                <Circle
-                  center={{ lat: this.state.lat, lng: this.state.lng }}
-                  strokeColor="#000000"
-                  fillColor="rgba(0, 0, 0, 0.2)"
-                  lineWidth={5}
-                  radius={this.state.circleRadius}
-                />
-              </HereMap>
-            </div>
-          </div>
-        );
-
-      case 1:
-        return (
-          <div>
-            <div className="questionaire-stepcontent-box">
-
-              <TextField
-                onChange={e => this.handleInput(e)}
-                id="size"
-                className="questionaire-stepcontent-box-textfield"
-                variant="outlined"
-                label="Størrelse(m2)"
-                type="number"
-              />
-               <TextField
-              onChange={e => this.handleInput(e)}
-              id="rooms"
-              className="questionaire-stepcontent-box-textfield"
-              variant="outlined"
-              label="Antal rum "
-              value={this.state.circleRadius}
-              type="number"
-            />
-            </div>
-          </div>
-        );
-      case 2:
-        return (
-          <div>
-            <div className="questionaire-stepcontent-box"></div>
-          </div>
-        );
-    }
-  };
   render() {
-    const steps = getSteps();
-    const { activeStep } = this.state;
     return (
-      <div className="questionaire-container">
-        <Fade>
-          <Stepper activeStep={activeStep} orientation="vertical">
-            {steps.map((label, index) => (
-              <Step key={label.text}>
-                <StepLabel>
-                  <Typography variant="h4">{label.text}</Typography>
-                </StepLabel>
-                <StepContent>
-                  <div className="questionaire-stepcontent">
-                    <Typography>{this.getStepContent(index)}</Typography>
-                    <div>
-                      <Button
-                        disabled={activeStep === 0}
-                        onClick={() => this.handleBack()}
-                        className="questionaire-stepcontent-button"
-                      >
-                        Tilbage
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => this.handleNext()}
-                        className="questionaire-stepcontent-button"
-                      >
-                        {activeStep === steps.length - 1 ? "Færdig" : "Næste"}
-                      </Button>
-                    </div>
+      <div className="questionaire-main">
+        <div className="questionaire-main-container">
+          <Fade>
+            <QuestionaireHard
+              showHard={() => this.setState({ showHard: true })}
+            ></QuestionaireHard>
+          </Fade>
+          <Fade when={this.state.showHard}>
+            <QuestionaireSoft
+              showDone={() => this.setState({ done: true })}
+            ></QuestionaireSoft>
+          </Fade>
+        </div>
+        <Fade when={this.state.done}>
+          <Button
+            color="primary"
+            variant="contained"
+            className="introduction-start-button"
+            onClick={() => this.props.analyse()}
+          >
+            <Typography variant="h4">Færdig</Typography>
+          </Button>
+          {this.props.result ? (
+            <div style={{ padding: 10 }}>
+              <div>THIS IS DEBUG STUFF, HAVE FUN MORTEN!</div>
+              <div>Translations:</div>
+              {this.props.result.translations.map(text => {
+                return (
+                  <div>
+                    <div>{text.translation}</div>
+                    <br />
                   </div>
-                </StepContent>
-              </Step>
-            ))}
-          </Stepper>
+                );
+              })}
+              <div>Results:</div>
+              <br />
+              <div>Personality:</div>
+              <br />
+              {this.props.result.result.personality.map(element => {
+                return (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexFlow: "row",
+                      justifyContent: "space-around"
+                    }}
+                  >
+                    <div> {element.name} </div>
+                    <div>percentile: {element.percentile} </div>
+                    <div>raw_score: {element.raw_score} </div>
+                  </div>
+                );
+              })}
+
+              <div>needs:</div>
+              <br />
+              {this.props.result.result.needs.map(element => {
+                return (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexFlow: "row",
+                      justifyContent: "space-around"
+                    }}
+                  >
+                    <div> {element.name} </div>
+                    <div>percentile: {element.percentile} </div>
+                    <div>raw_score: {element.raw_score} </div>
+                  </div>
+                );
+              })}
+              <div>values:</div>
+              <br />
+              {this.props.result.result.values.map(element => {
+                return (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexFlow: "row",
+                      justifyContent: "space-around"
+                    }}
+                  >
+                    <div> {element.name} </div>
+                    <div>percentile: {element.percentile} </div>
+                    <div>raw_score: {element.raw_score} </div>
+                  </div>
+                );
+              })}
+              <div>consumption preferences:</div>
+              <br />
+              {this.props.result.result.consumption_preferences.map(element => {
+               return (<div  style={{
+                display: "flex",
+                flexFlow: "row",
+                justifyContent: "space-between",
+                alignItems: "center"
+               
+              }}> 
+                 <div style={{margin: 10}}> {element.name} </div>
+
+              {element.consumption_preferences.map(
+                  element => {
+                    return (
+                      <div
+                      style={{margin: 10, fontWeight: element.score === 1 ? "bold": 100}}
+                      >
+                        <div> {element.name} </div>
+                        <div> {element.score} </div>
+
+                      </div>
+                    );
+                  }
+                )
+              } </div>)})}
+            </div>
+          ) : null}
         </Fade>
       </div>
     );
@@ -238,7 +172,9 @@ class Questionaire extends React.Component {
  * @param {object} state the redux state
  * @returns the mapped props
  */
-const mapStateToProps = state => ({}); // mapStateToProps()
+const mapStateToProps = state => ({
+  result: state.questionaire.result
+}); // mapStateToProps()
 
 /**
  * Maps the Component Functions to Redux
@@ -247,7 +183,8 @@ const mapStateToProps = state => ({}); // mapStateToProps()
  * @returns The bound actions creators
  */
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({}, dispatch)
+  ...bindActionCreators({}, dispatch),
+  analyse: () => dispatch(QuestionaireActions.analyse())
 }); // mapDispatchToProps()
 
 // Exports the redux connected component

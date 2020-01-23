@@ -5,7 +5,6 @@ import { tokenApi } from '../util/api'
 export function somedummyfunction() {
     console.log("whaat?")
     return async (dispatch) => {
-     
       return tokenApi("/api/v1/blockchaintemplate/blockchaintemplate/queryChaincode",
        "GET",
        {

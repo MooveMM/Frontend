@@ -1,25 +1,43 @@
+.questionaire-main{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+.questionaire-main-container{
+    display: flex; 
+    flex: 1; 
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
 .questionaire-container{
     display: flex; 
     display: 1; 
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     margin: 20px;
-
+    flex-flow: column;  
+    min-width: 300px;
+    width: 40vw;
 }
 
 .questionaire-stepcontent{
     width: 100%; 
-    max-width: 80vw; 
+    max-width: 40vw; 
+   
 }
 .questionaire-steplabel{
     font-size: 30px !important
 }
 .questionaire-stepcontent-box{
-    width: 80vw;
+
     display:flex;
     flex: 1;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
 
 }
 .questionaire-stepcontent-box-textfield-distancefrom{
@@ -28,14 +46,21 @@
 }
 
 .questionaire-stepcontent-box-textfield{
+    width: 100%;    
     margin: 5px !important;
 }
 .questionaire-stepcontent-box-textfield-address{
     margin: 10px !important;
-    width: 300px
+    width: 100%
 }
 
 .questionaire-map{
-    width: 500px;
-    height: 500px;
+    width: 100%;
+    height: 300px;
+}
+
+
+
+.questionaire-container-description{
+    max-width: 40vw;
 }

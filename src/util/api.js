@@ -43,12 +43,12 @@ export async function tokenApi(url, method, token, data, headers) {
         headers:
         {
             "X-Auth-Token": token,
-            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            'Content-Type': 'application/json',
 
             ...headers
         },
         mode: "cors",
-        body: querystring.stringify(data),
+        body: JSON.stringify(data),
     };
 
     var optionsGet = {

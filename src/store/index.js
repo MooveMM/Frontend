@@ -7,6 +7,7 @@ import { connectRouter } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import storage from 'redux-persist/lib/storage';
 import UserReducer from '../_reducers/user'
+import QuestionaireReducer from '../_reducers/questionaire'
 // Init the history variable
 const history = createBrowserHistory();
 
@@ -23,7 +24,8 @@ export default function setupStore() {
    */
   const combinedReducers = clientHistory => combineReducers({
     router: connectRouter(clientHistory),
-    user: UserReducer
+    user: UserReducer,
+    questionaire: QuestionaireReducer
   }); // combineReducers()
 
   const persistConfig = {
