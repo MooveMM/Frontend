@@ -18,7 +18,7 @@ class LandingPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      step: 1
+      step: 0
     };
   }
 

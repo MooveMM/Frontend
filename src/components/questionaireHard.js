@@ -40,7 +40,7 @@ class Questionaire extends React.Component {
       activeStep: 0,
       lat: 56.2631,
       lng: 10.03745,
-      circleRadius: 100
+      circleRadius: 2
     };
 
     this.platform = new window.H.service.Platform({

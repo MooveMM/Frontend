@@ -38,7 +38,7 @@ class Questionaire extends React.Component {
     super(props);
     this.state = {
       showHard: false,
-      done: true
+      done: false
     };
   }
 
