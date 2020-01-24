@@ -213,7 +213,7 @@ class Questionaire extends React.Component {
             {steps.map((label, index) => (
               <Step key={label.text}>
                 <StepLabel>
-                  <Typography variant="h4">{label.text}</Typography>
+                  <Typography onClick={() => this.setActiveStep(index)} variant="h4">{label.text}</Typography>
                 </StepLabel>
                 <StepContent>
                   <div className="questionaire-stepcontent">
