@@ -78,7 +78,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "husky": "^3.0.4",
-    "jsdom": "15.1.1",
+    "jsdom": "16.5.0",
     "jsdom-global": "3.0.2"
   },
   "proxy": "https://dev.moove-86bb64229c8b7986aa79497eaebc2fd2-0000.eu-gb.containers.appdomain.cloud/"
